@@ -1,8 +1,10 @@
 #include <iostream>
 #include <map>
 #include <args.hxx>
+#include <fstream>
 
 using namespace std;
+
 
 map<char, char> rotate(int rotations){
     map<char , char> alphabetMap {};
@@ -40,11 +42,14 @@ string replace(string input, map<char, char>& alphabetMap) {
 int main(int argc, const char** argv) {
     map<char ,char> alphabet;
     int rotations {};
+    string filename {};
     string input {};
+
 
     args::ArgumentParser parser("This is a program to de-/encrypt caesar encryption");
     args::HelpFlag help(parser, "help", "Display this help menu", {'h', "help"});
     args::ValueFlag<int> rotationsArg(parser, "rotations", "The rotations flag", {'r'});
+    args::ValueFlag<string> fileArg(parser, "file", "Input file instead of using stdin", {'f'});
     args::PositionalList<string> inputArg(parser, "input text", "The input text to de-/encrypt");
     try
     {
@@ -69,15 +74,38 @@ int main(int argc, const char** argv) {
 
     if(!rotationsArg) {
         cerr << "The rotations argument is missing";
+        cerr << parser;
         return 1;
     }
 
-    if (!inputArg) {
-        cerr << "The text argument is missing";
+    if (!inputArg && !fileArg) {
+        cerr << "The text or file argument is missing";
+        cerr << parser;
+        return 1;
+    }
+
+    if (fileArg && inputArg) {
+        cerr << "An error occured, You can not use a file as input and a string at the same time";
+        cerr << parser;
+        return 1;
     }
     rotations = args::get(rotationsArg);
-    for (auto c: inputArg) {
-        input += c;
+    if (inputArg) {
+        for (auto c: inputArg) {
+            input += c;
+        }
+    } else if (fileArg) {
+        filename = args::get(fileArg);
+        ifstream inputfile (filename);
+        string line;
+        if (inputfile.is_open())
+        {
+            while ( getline (inputfile,line) )
+            {
+                input += line;
+            }
+            inputfile.close();
+        }
     }
     transform(input.begin(), input.end(), input.begin(), ::tolower);
 
