@@ -3,4 +3,4 @@ project(Caesar)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Caesar main.cpp)
+add_executable(Caesar main.cpp argh.h)
