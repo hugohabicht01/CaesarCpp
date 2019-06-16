@@ -1,11 +1,21 @@
 #include <iostream>
 #include <map>
-#include <args.hxx>
 #include <fstream>
 #include "argh.h"
 
+
 using namespace std;
 
+void readFile(const string& file, string *dest){
+    string line;
+    ifstream inputFile(file);
+    if (inputFile.is_open()) {
+        while (getline(inputFile, line)) {
+            *dest += line;
+        }
+        inputFile.close();
+    }
+}
 
 map<char, char> rotate(int rotations){
     map<char , char> alphabetMap {};
@@ -50,19 +60,45 @@ int main(int argc, const char** argv) {
     cmdl.add_params({"-r", "--rotations", "-f", "--file", "-t", "--text"});
     cmdl.parse(argc, argv);
     if (cmdl("rotations") || cmdl("r")) {
-        try {
+
+        if(cmdl("rotations")) {
             rotations = stoi(cmdl("rotations").str());
-            cout << rotations;
-        }
-        catch (int e) {
+        } else if (cmdl("r")) {
             rotations = stoi(cmdl("r").str());
+        } else {
+            cerr << "Rotations argument missing.\n";
+            return 1;
         }
+
+    } else {
+        cerr << "Rotations argument missing.\n";
+        return 1;
     }
-    /*
+
+    if (cmdl("text") || cmdl("t")) {
+        if ("text") {
+            input = cmdl("text").str();
+        } else if (cmdl("t")) {
+            input = cmdl("t").str();
+        }
+
+    } else if (cmdl("file") || cmdl("f")) {
+        if (cmdl("file")) {
+            filename = cmdl("file").str();
+            readFile(filename, &input);
+        } else if (cmdl("f")) {
+            filename = cmdl("f").str();
+            readFile(filename, &input);
+        }
+
+    } else {
+        cerr << "You have to specify a text or file argument. \n";
+    }
+
     transform(input.begin(), input.end(), input.begin(), ::tolower);
 
     alphabet = rotate(rotations);
     cout << replace(input, alphabet);
-     */
+
     return 0;
 }
