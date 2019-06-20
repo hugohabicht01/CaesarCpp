@@ -22,7 +22,7 @@ map<char, char> rotate(int rotations){
         char originalChar, rotatedChar;
         int valueOfChar;
         const string alphabet_ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
-        for (int index = 0; index < 26; ++index) {
+        for (int index = 0; index < alphabet_ascii_lowercase.length(); ++index) {
                 originalChar = alphabet_ascii_lowercase[index];
                 valueOfChar = originalChar - 97;
                 rotatedChar = (char) (((valueOfChar + rotations) % 26) + 97);
@@ -63,7 +63,9 @@ int main(int argc, const char** argv) {
                 cerr << "Rotations argument missing.\n";
                 return 1;
         }
-        if (cmdl({"text", "t"}) >> input) {
+        if (getline(cmdl({"text", "t"}), input, '\0')) {
+//        if (!cmdl[{"text", "t"}]) {
+//            input = cmdl({"text", "t"}).str();
         } else if (cmdl({"file", "f"}) >> filename) {
                 readFile(filename, &input);
         } else {
