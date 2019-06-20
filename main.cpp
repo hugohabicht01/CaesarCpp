@@ -22,7 +22,7 @@ map<char, char> rotate(int rotations){
         char originalChar, rotatedChar;
         int valueOfChar;
         const string alphabet_ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
-        for (int index = 0; index < 25; ++index) {
+        for (int index = 0; index < 26; ++index) {
                 originalChar = alphabet_ascii_lowercase[index];
                 valueOfChar = originalChar - 97;
                 rotatedChar = (char) (((valueOfChar + rotations) % 26) + 97);
