@@ -64,6 +64,7 @@ int main(int argc, const char** argv) {
                 return 1;
         }
         if (getline(cmdl({"text", "t"}), input, '\0')) {
+//            andere loesung, mit bool werten
 //        if (!cmdl[{"text", "t"}]) {
 //            input = cmdl({"text", "t"}).str();
         } else if (cmdl({"file", "f"}) >> filename) {
