@@ -1,0 +1,4 @@
+/home/linuxer/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/191.7479.33/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/linuxer/CLionProjects/CaesarCpp
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/linuxer/CLionProjects/CaesarCpp/cmake-build-debug

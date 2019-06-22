@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/linuxer/CLionProjects/CaesarCpp/argh.h
+algorithm
+-
+sstream
+-
+string
+-
+vector
+-
+set
+-
+map
+-
+cassert
+-
+
+/home/linuxer/CLionProjects/CaesarCpp/caesar.h
+map
+-
+
+/home/linuxer/CLionProjects/CaesarCpp/main.cpp
+iostream
+-
+map
+-
+fstream
+-
+argh.h
+/home/linuxer/CLionProjects/CaesarCpp/argh.h
+caesar.h
+/home/linuxer/CLionProjects/CaesarCpp/caesar.h
+

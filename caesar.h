@@ -21,14 +21,11 @@ public:
 
     void replace();
 
+    const std::string &getCryptedText() const;
 private:
     std::map<char, char> alphabetMap;
     std::string plainText;
     std::string cryptedText;
-public:
-    const std::string &getCryptedText() const;
-
-private:
     std::string alphabet;
     int rotations;
 };

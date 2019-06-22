@@ -1,0 +1,3 @@
+Hallo Welt,
+	ich bin der Ceddy. Ich hab mit OOP ein Programm geschrieben, um mit dem CaesarCipher Texte zu verschluesseln.
+Viele Gruesse Ceddy
