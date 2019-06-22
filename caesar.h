@@ -4,7 +4,6 @@
 
 #ifndef CAESAR_CAESAR_H
 #define CAESAR_CAESAR_H
-
 #include <map>
 
 

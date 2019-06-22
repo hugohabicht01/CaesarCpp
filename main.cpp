@@ -4,11 +4,10 @@
 #include "argh.h"
 
 
-using namespace std;
 
-void readFile(const string& file, string *dest){
-        string line;
-        ifstream inputFile(file);
+void readFile(const std::string& file, std::string *dest){
+        std::string line;
+        std::ifstream inputFile(file);
         if (inputFile.is_open()) {
                 while (getline(inputFile, line)) {
                         *dest += (line + "\n");
@@ -17,11 +16,11 @@ void readFile(const string& file, string *dest){
         }
 }
 
-map<char, char> rotate(int rotations){
-        map<char, char> alphabetMap {};
+std::map<char, char> rotate(int rotations){
+        std::map<char, char> alphabetMap {};
         char originalChar, rotatedChar;
         int valueOfChar;
-        const string alphabet_ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
+        const std::string alphabet_ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
         for (int index = 0; index < alphabet_ascii_lowercase.length(); ++index) {
                 originalChar = alphabet_ascii_lowercase[index];
                 valueOfChar = originalChar - 97;
@@ -32,8 +31,8 @@ map<char, char> rotate(int rotations){
 }
 
 
-string replace(string input, map<char, char>& alphabetMap) {
-        string replacedText {};
+std::string replace(std::string input, std::map<char, char>& alphabetMap) {
+        std::string replacedText {};
         char replacedChar {};
 
         for (int index = 0; index < input.length(); ++index) {
@@ -51,16 +50,16 @@ string replace(string input, map<char, char>& alphabetMap) {
 
 
 int main(int argc, const char** argv) {
-        map<char ,char> alphabet;
+        std::map<char ,char> alphabet;
         int rotations {};
-        string rotationsString {};
-        string filename {};
-        string input {};
+        std::string rotationsString {};
+        std::string filename {};
+        std::string input {};
         argh::parser cmdl;
         cmdl.add_params({"-r", "--rotations", "-f", "--file", "-t", "--text"});
         cmdl.parse(argc, argv);
         if (!(cmdl({"rotations", "r"}) >> rotations)) {
-                cerr << "Rotations argument missing.\n";
+                std::cerr << "Rotations argument missing.\n";
                 return 1;
         }
         if (getline(cmdl({"text", "t"}), input, '\0')) {
@@ -70,10 +69,11 @@ int main(int argc, const char** argv) {
         } else if (cmdl({"file", "f"}) >> filename) {
                 readFile(filename, &input);
         } else {
-                cerr << "You have to specify a text or file argument. \n";
+                std::cerr << "You have to specify a text or file argument. \n";
                 return 1;
         }
         transform(input.begin(), input.end(), input.begin(), ::tolower);
         alphabet = rotate(rotations);
-        cout << replace(input, alphabet);
-        return 0;}
+        std::cout << replace(input, alphabet);
+        return 0;
+}
