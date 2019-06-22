@@ -2,7 +2,7 @@
 #include <map>
 #include <fstream>
 #include "argh.h"
-
+#include "caesar.h"
 
 
 void readFile(const std::string& file, std::string *dest){
@@ -16,6 +16,39 @@ void readFile(const std::string& file, std::string *dest){
         }
 }
 
+
+int main(int argc, const char** argv) {
+    int rotations {};
+    std::string rotationsString {};
+    std::string filename {};
+    std::string input {};
+    argh::parser cmdl;
+    cmdl.add_params({"-r", "--rotations", "-f", "--file", "-t", "--text"});
+    cmdl.parse(argc, argv);
+    if (!(cmdl({"rotations", "r"}) >> rotations)) {
+            std::cerr << "Rotations argument missing.\n";
+            return 1;
+    }
+    if (getline(cmdl({"text", "t"}), input, '\0')) {
+    } else if (cmdl({"file", "f"}) >> filename) {
+            readFile(filename, &input);
+    } else {
+            std::cerr << "You have to specify a text or file argument. \n";
+            return 1;
+    }
+    transform(input.begin(), input.end(), input.begin(), ::tolower);
+    caesar crypt;
+    crypt.setAlphabet("abcdefghijklmnopqrstuvwxyz");
+    crypt.setPlaintext(input);
+    crypt.rotateAlphabet();
+    crypt.replace();
+    std::cout << crypt.getCryptedText() << "\n";
+    return 0;
+}
+
+
+
+/*
 std::map<char, char> rotate(int rotations){
         std::map<char, char> alphabetMap {};
         char originalChar, rotatedChar;
@@ -48,7 +81,6 @@ std::string replace(std::string input, std::map<char, char>& alphabetMap) {
 }
 
 
-
 int main(int argc, const char** argv) {
         std::map<char ,char> alphabet;
         int rotations {};
@@ -63,9 +95,6 @@ int main(int argc, const char** argv) {
                 return 1;
         }
         if (getline(cmdl({"text", "t"}), input, '\0')) {
-//            andere loesung, mit bool werten
-//        if (!cmdl[{"text", "t"}]) {
-//            input = cmdl({"text", "t"}).str();
         } else if (cmdl({"file", "f"}) >> filename) {
                 readFile(filename, &input);
         } else {
@@ -77,3 +106,4 @@ int main(int argc, const char** argv) {
         std::cout << replace(input, alphabet);
         return 0;
 }
+ */

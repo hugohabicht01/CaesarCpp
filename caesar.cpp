@@ -51,3 +51,7 @@ void caesar::replace() {
         this->cryptedText += replacedChar;
     }
 }
+
+const std::string &caesar::getCryptedText() const {
+    return cryptedText;
+}
