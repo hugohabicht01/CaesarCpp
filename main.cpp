@@ -18,7 +18,7 @@ void readFile(const string& file, string *dest){
 }
 
 map<char, char> rotate(int rotations){
-        map<char , char> alphabetMap {};
+        map<char, char> alphabetMap {};
         char originalChar, rotatedChar;
         int valueOfChar;
         const string alphabet_ascii_lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -76,5 +76,4 @@ int main(int argc, const char** argv) {
         transform(input.begin(), input.end(), input.begin(), ::tolower);
         alphabet = rotate(rotations);
         cout << replace(input, alphabet);
-        return 0;
-}
+        return 0;}
