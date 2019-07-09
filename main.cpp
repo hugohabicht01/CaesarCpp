@@ -36,12 +36,13 @@ int main(int argc, const char** argv) {
             std::cerr << "You have to specify a text or file argument. \n";
             return 1;
     }
-    transform(input.begin(), input.end(), input.begin(), ::tolower);
+
     caesar crypt;
     crypt.setAlphabet("abcdefghijklmnopqrstuvwxyz");
     crypt.setPlaintext(input);
     crypt.setRotations(rotations);
     crypt.rotateAlphabet();
+    crypt.prepare();
     crypt.replace();
     std::cout << crypt.getCryptedText() << "\n";
     return 0;

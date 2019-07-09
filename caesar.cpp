@@ -3,6 +3,8 @@
 //
 
 #include "caesar.h"
+#include <iostream>
+#include <algorithm>
 
 
 void caesar::setAlphabet(const std::string &alphabet) {
@@ -21,7 +23,18 @@ void caesar::setRotations(int rotations) {
 }
 
 void caesar::prepare() {
+    /*
+     * "Remembers the position of uppercase chars to replace them at the end
+     */
+    for (char c : this->plainText) {
 
+        if (65 <= c && c <= 90) {
+            this->uppercaseChars.push_back(true);
+        } else {
+            this->uppercaseChars.push_back(false);
+        }
+    }
+    std::transform(this->plainText.begin(), this->plainText.end(), this->plainText.begin(), ::tolower);
 }
 
 void caesar::rotateAlphabet() {
@@ -41,6 +54,7 @@ void caesar::replace() {
     /*
      * Replaces the chars with shifted chars
      */
+
     char replacedChar {};
     for (char c : this->plainText) {
         if ('a' <= c && c <= 'z') {
@@ -52,6 +66,22 @@ void caesar::replace() {
     }
 }
 
-const std::string &caesar::getCryptedText() const {
+std::string caesar::getCryptedText(){
+    /*
+     * Changes old uppercase chars which got converted to lowercase back to uppercase
+     */
+    int counter {0};
+    std::string _str {};
+    for (bool bit : this->uppercaseChars) {
+        if (bit) {
+            _str.push_back(toupper(this->cryptedText.at(counter)));
+//            this->cryptedText.replace(counter, 1, toupper(this->cryptedText.at(counter)));
+//            this->cryptedText[counter] = toupper(this->cryptedText.at(counter));
+        } else {
+            _str.push_back(this->cryptedText.at(counter));
+        }
+        counter += 1;
+    }
+    this->cryptedText = _str;
     return cryptedText;
 }

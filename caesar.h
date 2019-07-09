@@ -5,6 +5,8 @@
 #ifndef CAESAR_CAESAR_H
 #define CAESAR_CAESAR_H
 #include <map>
+#include <iostream>
+#include <vector>
 
 
 class caesar {
@@ -21,13 +23,14 @@ public:
 
     void replace();
 
-    const std::string &getCryptedText() const;
+    std::string getCryptedText();
 private:
-    std::map<char, char> alphabetMap;
-    std::string plainText;
-    std::string cryptedText;
-    std::string alphabet;
-    int rotations;
+    std::map<char, char> alphabetMap {};
+    std::string plainText {};
+    std::string cryptedText {};
+    std::string alphabet {};
+    int rotations {};
+    std::vector<bool> uppercaseChars {};
 };
 
 
